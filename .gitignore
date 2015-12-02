@@ -18,6 +18,7 @@ hs_err_pid*
 .idea/
 
 build/
+!gradle/wrapper/*
 
 !library/*.jar
 !library/util/*.jar
