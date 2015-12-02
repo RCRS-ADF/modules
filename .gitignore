@@ -4,29 +4,23 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# gradle
+.gradle/
+
 # inteliJ
-!*.iml
+*.iml
 *.ipr
 *.iws
 .idea/
 
-build/
+# build
+build/classes/
+build/dependency-cache/
+build/tmp/
 !build/libs/*
-!gradle/wrapper/*
-.gradle/
-
-!library/*.jar
-!library/util/*.jar
-!library/util/default/*.jar
-!library/rescue/*.jar
-!library/rescue/adf/*.jar
-!library/rescue/adf/sources/*.jar
-!library/rescue/core/*.jar
-!library/rescue/core/sources/*.jar
