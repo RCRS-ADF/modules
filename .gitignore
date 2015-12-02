@@ -20,7 +20,8 @@ hs_err_pid*
 .idea/
 
 # build
-build/classes/
-build/dependency-cache/
-build/tmp/
-!build/libs/*
+build/*
+!build/libs
+!build/libs/*.jar
+
+# other
