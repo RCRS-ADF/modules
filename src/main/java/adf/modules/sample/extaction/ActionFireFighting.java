@@ -1,34 +1,32 @@
-package adf.modules.extaction;
+package adf.modules.sample.extaction;
 
-import adf.agent.info.AgentInfo;
-import adf.agent.info.ScenarioInfo;
-import adf.agent.info.WorldInfo;
 import adf.agent.action.common.ActionMove;
 import adf.agent.action.common.ActionRest;
 import adf.agent.action.fire.ActionExtinguish;
-import adf.component.algorithm.path.PathPlanner;
+import adf.agent.info.AgentInfo;
+import adf.agent.info.ScenarioInfo;
+import adf.agent.info.WorldInfo;
+import adf.component.algorithm.PathPlanning;
 import adf.component.extaction.ExtAction;
-import rescuecore2.standard.entities.StandardEntity;
 import rescuecore2.worldmodel.EntityID;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ActionFireFighting extends ExtAction {
 
     private WorldInfo worldInfo;
     private AgentInfo agentInfo;
-    private PathPlanner pathPlanner;
+    private PathPlanning pathPlanning;
     private int maxDistance;
     private int maxPower;
     private EntityID target;
 
-    public ActionFireFighting(WorldInfo worldInfo, AgentInfo agentInfo, ScenarioInfo scenarioInfo, PathPlanner pathPlanner, EntityID target) {
+    public ActionFireFighting(AgentInfo agentInfo, WorldInfo worldInfo, ScenarioInfo scenarioInfo, PathPlanning pathPlanning, EntityID target) {
         super();
         this.worldInfo = worldInfo;
         this.agentInfo = agentInfo;
-        this.pathPlanner = pathPlanner;
+        this.pathPlanning = pathPlanning;
         this.target = target;
         this.maxDistance = scenarioInfo.getFireExtinguishMaxDistance();
         this.maxPower = scenarioInfo.getFireExtinguishMaxSum();
@@ -51,14 +49,12 @@ public class ActionFireFighting extends ExtAction {
 
     private List<EntityID> planPathToFire(EntityID target) {
         // Try to get to anything within maxDistance of the target
-        Collection<StandardEntity> targets = this.worldInfo.getObjectsInRange(target, maxDistance);
+        Collection<EntityID> targets = this.worldInfo.getObjectIDsInRange(target, maxDistance);
         if (targets.isEmpty()) {
             return null;
         }
-
-        List<EntityID> cvtList = targets.stream().map(StandardEntity::getID).collect(Collectors.toList());
-        this.pathPlanner.setFrom(this.agentInfo.getPosition());
-        this.pathPlanner.setDist(cvtList);
-        return this.pathPlanner.getResult();
+        this.pathPlanning.setFrom(this.agentInfo.getPosition());
+        this.pathPlanning.setDestination(targets);
+        return this.pathPlanning.getResult();
     }
 }
