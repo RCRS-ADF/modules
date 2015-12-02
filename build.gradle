@@ -13,7 +13,7 @@ dependencies {
     compile fileTree(dir: new File(rootDir, 'library/util'), include: '*.jar')
     compile fileTree(dir: new File(rootDir, 'library/util/default'), include: '*.jar')
     compile fileTree(dir: new File(rootDir, 'library/rescue/core'), include: '*.jar')
-    compile fileTree(dir: new File(rootDir, 'library/rescue/util'), include: '*.jar')
+    compile fileTree(dir: new File(rootDir, 'library/rescue/adf'), include: '*.jar')
 }
 
 [compileJava, compileTestJava].each {
